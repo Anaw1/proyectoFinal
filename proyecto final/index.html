@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>examenes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>RETOPREPARATE</h1>
+    <h2 style="text-align:center;">Ingresa el PIN para <br>continuar</h2>
+   
+    <input type="password" id="pin" placeholder="Ingrese PIN"><br>
+    <button onclick="verificarPIN()">Entrar</button>
+    <p id="mensaje"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+<script>
+ function verificarPIN() {
+  const pinIngresado = document.getElementById("pin").value;
+  const mensaje = document.getElementById("mensaje");
+  if (pinIngresado === "1234") {
+    window.location.href = "evaluaciones.html";
+  } else {
+    mensaje.textContent = "PIN incorrecto. Intenta de nuevo.";
+    mensaje.style.color = "red";
+  }
+}
+
+</script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #aba0be;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .login-container {
+        background-color: #d4cbcb;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    input{
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        width: 90%;
+        border-radius: 5px;
+        border: 1px solid #b3a1a1;
+    }
+    button {
+        padding: 10px 120px;
+        background-color: #201161;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #190d5cd2;
+    }
+
+</style>
+</html>

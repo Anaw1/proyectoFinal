@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluación de Matemáticas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eee9f0;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background-color: rgba(211, 196, 210, 0.795);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #3445a7;
+    }
+
+    .question {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+
+    .submit-btn, .home-btn
+    
+    {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+
+    .submit-btn {
+      background-color: #1cc20d;
+      color: #fff;
+    }
+
+    .home-btn {
+      background-color: #3625cf;
+      color: #fff;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fceff8;
+      color: #0b6885;
+      border-radius: 8px;
+      display: none;
+    }
+
+    
+    .error {
+      background-color: #f1f5f8;
+      color: #1d1b75;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pruebas de  Matemáticas</h1>
+    <form id="quizForm">
+      <div class="question">
+        <h3>1. ¿Cuánto es 7 + 5?</h3>
+        <label><input type="radio" name="q1" value="0"> 10</label>
+        <label><input type="radio" name="q1" value="1"> 12</label>
+        <label><input type="radio" name="q1" value="0"> 13</label>
+      </div>
+
+      <div class="question">
+        <h3>2. ¿Cuál es la raíz cuadrada de 81?</h3>
+        <label><input type="radio" name="q2" value="0"> 8</label>
+        <label><input type="radio" name="q2" value="0"> 10</label>
+        <label><input type="radio" name="q2" value="1"> 9</label>
+      </div>
+
+      <div class="question">
+        <h3>3. ¿Cuánto es 15 / 3?</h3>
+        <label><input type="radio" name="q3" value="0"> 18</label>
+        <label><input type="radio" name="q3" value="1"> 5</label>
+        <label><input type="radio" name="q3" value="0"> 16</label>
+      </div>
+
+      <div class="question">
+        <h3>4. ¿Qué tipo de triángulo tiene todos sus lados iguales?</h3>
+        <label><input type="radio" name="q4" value="1"> Equilátero</label>
+        <label><input type="radio" name="q4" value="0"> Isósceles</label>
+        <label><input type="radio" name="q4" value="0"> Escaleno</label>
+      </div>
+
+      <div class="question">
+        <h3>5. ¿Cuál es el valor de x si 2x + 3 = 11?</h3>
+        <label><input type="radio" name="q5" value="0"> 3</label>
+        <label><input type="radio" name="q5" value="1"> 4</label>
+        <label><input type="radio" name="q5" value="0"> 5</label>
+      </div>
+
+      <button type="button" class="submit-btn" onclick="calcularResultado()">Calificar</button>
+      <button type="button" class="home-btn" onclick="irAlInicio()">Volver al inicio</button>
+    </form>
+
+    <div id="resultado" class="result"></div>
+
+  <script>
+    function calcularResultado() {
+      const form = document.getElementById("quizForm");
+      const resultado = document.getElementById("resultado");
+      const formData = new FormData(form);
+
+      const respuestasCorrectas = {
+        q1: "1", 
+        q2: "1", 
+        q3: "1", 
+        q4: "1", 
+        q5: "1"  
+      };
+
+      let puntaje = 0;
+      let respuestas = 0;
+      let incorrectas = []; 
+      let preguntasRespondidas = new Set();
+
+      for (let [pregunta, valor] of formData.entries()) {
+        preguntasRespondidas.add(pregunta);
+        respuestas++;
+        if (respuestasCorrectas[pregunta] === valor) {
+          puntaje++;
+        } else {
+          incorrectas.push(pregunta); 
+        }
+      }
+
+      const totalPreguntas = Object.keys(respuestasCorrectas).length;
+
+      resultado.style.display = "block";
+      resultado.classList.remove("error");
+
+
+
+      if (preguntasRespondidas.size < totalPreguntas) {
+       
+        resultado.style.display = "block";
+        resultado.classList.add("error");
+        resultado.innerHTML = `<p><strong> Por favor responde todas las preguntas antes de calificar.</strong></p>
+        `;
+        return;
+      }
+
+     
+      resultado.innerHTML = `
+        <p>Tu puntaje es: ${puntaje} de ${respuestas}</p>
+        ${
+          incorrectas.length > 0
+            ? `<p>Te equivocaste en las siguientes preguntas: ${incorrectas.join(", ")}</p>`
+            : "<p> ¡Felicidades! Respondiste todo correctamente.</p>"
+        }
+      `;
+    }
+    
+    function irAlInicio() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
